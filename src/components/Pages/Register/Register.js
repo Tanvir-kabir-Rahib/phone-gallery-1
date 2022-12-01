@@ -22,6 +22,7 @@ const Register = () => {
                 updateUser(userInfo)
                     .then(() => {
                         saveUserToDB(name, email, userType)
+                        navigate('/')
                     })
                     .catch(err => console.error(err))
             })
@@ -32,23 +33,23 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 saveUserToDB(user.displayName, user.email, 'Buyer');
+                navigate('/');
             })
             .catch(err => console.error(err))
     }
     const saveUserToDB = (name, email, userType) => {
         const user = { name, email, userType };
-        console.log(user);
-        // fetch('http://localhost:4000/users', {
-        //     method: 'post',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(user)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         setUserEmail(user.email)
-        //     })
+        fetch('http://localhost:4000/users', {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setUserEmail(user.email)
+            })
     }
     return (
         <div className='h-[800px] flex justify-center items-center' >

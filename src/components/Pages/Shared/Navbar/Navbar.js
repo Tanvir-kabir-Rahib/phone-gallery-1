@@ -8,15 +8,18 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
     const handleLogOut = () => {
         logOut()
-        .then()
-        .catch(err=>toast.error({err}))
+            .then()
+            .catch(err => toast.error({ err }))
     }
     const menuItems = <React.Fragment>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blogs'>Blogs</Link></li>
         {
             user ?
-                <li><button onClick={handleLogOut}>Logout<FaArrowRight></FaArrowRight></button></li>
+                <>
+                    <li><Link>Dashboard</Link></li>
+                    <li><button onClick={handleLogOut}>Logout<FaArrowRight></FaArrowRight></button></li>
+                </>
                 :
                 <li><Link to='/login'>Login</Link></li>
         }
