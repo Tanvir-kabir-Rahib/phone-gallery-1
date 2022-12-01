@@ -3,12 +3,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Categories = () => {
-    const { data: categories = [] } = useQuery({
+    const { data: categories = [], isLoading } = useQuery({
         queryKey: ['category'],
         queryFn: () => fetch(`http://localhost:4000/category`).then(res => res.json())
     })
-    console.log(categories)
 
+    if (isLoading) {
+        return (
+            <div className='mt-16 flex items-center justify-center'>
+                <button className="btn loading">loading</button>
+            </div>
+        )
+    }
 
     return (
         <div className='mt-32'>
