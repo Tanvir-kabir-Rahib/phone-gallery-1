@@ -2,15 +2,21 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from "react-icons/fa";
 import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+    const handleLogOut = () => {
+        logOut()
+        .then()
+        .catch(err=>toast.error({err}))
+    }
     const menuItems = <React.Fragment>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blogs'>Blogs</Link></li>
         {
             user ?
-                <li>Log Out</li>
+                <li><button onClick={handleLogOut}>Logout<FaArrowRight></FaArrowRight></button></li>
                 :
                 <li><Link to='/login'>Login</Link></li>
         }
