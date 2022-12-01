@@ -1,11 +1,15 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
-    const {user} = useContext(AuthContext)
-    
+    const { user } = useContext(AuthContext)
+    const { data: currentUser = null } = useQuery({
+        queryKey: ['currentUser', user?.email],
+        queryFn: () => fetch(`http://localhost:4000/user/${user?.email}`).then(res => res.json())
+    })
     return (
         <div>
             <Navbar />
@@ -18,8 +22,24 @@ const DashboardLayout = () => {
                     <div className="drawer-side">
                         <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                         <ul className="menu p-4 w-80 bg-gray-100 text-base-content">
-                            <li><a>Sidebar Item 1</a></li>
-                            <li><a>Sidebar Item 2</a></li>
+                            {
+                                currentUser?.userType === "Admin" ?
+                                    <>
+                                        <li><Link to='allBuyers'>All Buyers</Link></li>
+                                        <li><Link to='allSellers'>All Sellers</Link></li>
+                                        <li><Link to='reportedItems'>Reported Items</Link></li>
+                                    </>
+                                    :
+                                    currentUser?.userType === "Seller" ?
+                                        <>
+                                            <li><Link to='addProduct'>Add a Product</Link></li>
+                                            <li><Link to='myProducts'>My Products</Link></li>
+                                        </>
+                                        :
+                                        <>
+                                            <li><Link to='myOrders'>My Orders</Link></li>
+                                        </>
+                            }
                         </ul>
                     </div>
                 </div>

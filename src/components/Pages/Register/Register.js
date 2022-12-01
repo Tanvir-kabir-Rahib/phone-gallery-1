@@ -13,7 +13,6 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         const userType = form.userType.value;
-        console.log(name, email, password, userType)
         createUser(email, password)
             .then(user => {
                 const userInfo = {
