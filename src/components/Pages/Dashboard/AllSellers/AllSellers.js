@@ -39,16 +39,18 @@ const AllSellers = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             allSellers.length > 0 ?
-                                allSellers.map((seller, idx) => <tr onClick={()=>handleDeleteSeller(seller)} key={seller?._id} className="hover">
+                                allSellers.map((seller, idx) => <tr key={seller?._id} className="hover">
                                     <th>{idx + 1}</th>
                                     <td>{seller?.name}</td>
                                     <td>{seller?.email}</td>
-                                    <td><button className="btn btn-outline btn-warning rounded-lg">Delete</button></td>
+                                    <td><button className="btn btn-outline btn-info rounded-lg">Verify</button></td>
+                                    <td><button onClick={()=>handleDeleteSeller(seller)} className="btn btn-outline btn-warning rounded-lg">Delete</button></td>
                                 </tr>)
                                 :
                                 <div className='h-[600px] flex justify-center items-center'>

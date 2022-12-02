@@ -1,16 +1,41 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
+import MyProductCard from './MyProductCard';
 
 const MyProducts = () => {
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { data: myProducts = [], isLoading } = useQuery({
         queryKey: ['category'],
-        queryFn: () => fetch(`http://localhost:4000/products?email=$${user?.email}`).then(res => res.json())
+        queryFn: () => fetch(`http://localhost:4000/products?email=${user?.email}`).then(res => res.json())
     })
+
+    const handleAddAdvertise = (product) => {
+        console.log('handle adverite')
+    }
+
+    if (isLoading) {
+        return (
+            <div className='mt-16 flex items-center justify-center'>
+                <button className="btn loading">loading</button>
+            </div>
+        )
+    }
+
     return (
-        <div>
-            <h1>This is my Products</h1>
+        <div className='grid grid-cols-1 md:grid-cosl-2 lg:grid-cols-3 gap-8 px-4 my-24'>
+            {
+                myProducts.length > 1 ?
+                    myProducts.map(product => <MyProductCard
+                        key={product._id}
+                        handleAddAdvertise={handleAddAdvertise}
+                        product={product}
+                    ></MyProductCard>)
+                    :
+                    <div className='h-[600px] flex justify-center items-center'>
+                        <p className='text-6xl font-bold text-gray-300'>No Products</p>
+                    </div>
+            }
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -12,6 +13,7 @@ const AddProduct = () => {
         queryKey: ['category'],
         queryFn: () => fetch(`http://localhost:4000/category`).then(res => res.json())
     })
+
     const navigate = useNavigate();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     const handleAddProduct = data => {
@@ -28,6 +30,8 @@ const AddProduct = () => {
         const condition = data.condition;
         const description = data.description;
         const formData = new FormData();
+        const date = new Date()
+        const time = format(date, 'PPpp')
         formData.append('image', image);
         const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
         fetch(url, {
@@ -50,7 +54,9 @@ const AddProduct = () => {
                         condition,
                         description,
                         sellerEmail: user?.email,
-                        sellerName: user?.displayName
+                        sellerName: user?.displayName,
+                        image: imgData.data.url, 
+                        time
                     }
                     fetch('http://localhost:4000/products', {
                         method: 'POST',

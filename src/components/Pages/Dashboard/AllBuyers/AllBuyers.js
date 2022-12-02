@@ -44,11 +44,11 @@ const AllBuyers = () => {
                         <tbody>
                             {
                                 allBuyers.length > 0 ?
-                                    allBuyers.map((buyer, idx) => <tr onClick={() => handleDeleteBuyer(buyer)} key={buyer?._id} className="hover">
+                                    allBuyers.map((buyer, idx) => <tr key={buyer?._id} className="hover">
                                         <th>{idx + 1}</th>
                                         <td>{buyer?.name}</td>
                                         <td>{buyer?.email}</td>
-                                        <td><button className="btn btn-outline btn-warning rounded-lg">Delete</button></td>
+                                        <td><button onClick={() => handleDeleteBuyer(buyer)} className="btn btn-outline btn-warning rounded-lg">Delete</button></td>
                                     </tr>)
                                     :
                                     <div className='h-[600px] flex justify-center items-center'>

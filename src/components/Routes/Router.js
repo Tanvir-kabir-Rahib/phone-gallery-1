@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Main from "../Layouts/Main";
 import Blogs from "../Pages/Blogs/Blogs";
+import CategoryPage from "../Pages/CategoryPage/CategoryPage";
 import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
                 element: <HomePage></HomePage>,
             },
             {
+                path: '/category/:id',
+                loader: ({params}) => fetch(`http://localhost:4000/category/${params.id}`),
+                element: <PrivateRoute><CategoryPage /></PrivateRoute>,
+            },
+            {
                 path: '/blogs',
                 element: <Blogs></Blogs>
             },
@@ -47,11 +53,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Dashboard/>
+                element: <Dashboard />
             },
             {
                 path: '/dashboard/dashboard',
-                element: <Dashboard/>
+                element: <Dashboard />
             },
             {
                 path: '/dashboard/addProduct',
@@ -81,7 +87,7 @@ const router = createBrowserRouter([
     },
     {
         path: "*",
-        element:<NotFound></NotFound>
+        element: <NotFound></NotFound>
     }
 ])
 export default router;

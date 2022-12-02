@@ -25,7 +25,7 @@ const Categories = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8'>
                 {
                     categories.map(category =>
-                        <Link key={category._id} className="card card-compact bg-base-100 shadow-xl flex-row items-center justify-center rounded-xl">
+                        <Link to={`category/${category._id}`} key={category._id} className="card card-compact bg-base-100 shadow-xl flex-row items-center justify-center rounded-xl">
                             <figure className='w-2/5'><img src={category.imgURL} alt="Shoes"/></figure>
                             <div className="card-body w-3/5">
                                 <h2 className="card-title text-3xl">{category.name}</h2>
