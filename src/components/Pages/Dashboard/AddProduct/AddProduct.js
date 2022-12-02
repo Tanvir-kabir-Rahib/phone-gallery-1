@@ -151,7 +151,7 @@ const AddProduct = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className='form-control mb-3'>
-                        <input type="submit" value='Book Now' className='btn btn-accent mt-5' />
+                        <input type="submit" value='Add Product' className='btn btn-accent mt-5' />
                     </div>
                 </form >
             </div >
