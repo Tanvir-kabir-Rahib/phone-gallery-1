@@ -1,11 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const AllSellers = () => {
-    const { data: allSellers = [], isLoading } = useQuery({
+    const { data: allSellers = [], isLoading, refetch } = useQuery({
         queryKey: ['category'],
         queryFn: () => fetch(`http://localhost:4000/users/sellers`).then(res => res.json())
     })
+
+    const handleDeleteSeller = (seller) => {
+        fetch(`http://localhost:4000/users?email=${seller?.email}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`Doctor ${seller.name} deleted successfully`)
+                }
+            })
+    }
 
     if (isLoading) {
         return (
@@ -30,16 +44,16 @@ const AllSellers = () => {
                     <tbody>
                         {
                             allSellers.length > 0 ?
-                                allSellers.map((seller,idx) => <tr key={seller?._id} className="hover">
-                                    <th>{idx+1}</th>
+                                allSellers.map((seller, idx) => <tr onClick={()=>handleDeleteSeller} key={seller?._id} className="hover">
+                                    <th>{idx + 1}</th>
                                     <td>{seller?.name}</td>
                                     <td>{seller?.email}</td>
                                     <td><button className="btn btn-outline btn-warning rounded-lg">Delete</button></td>
                                 </tr>)
-                            :
-                            <div className='h-[600px] flex justify-center items-center'>
-                                <p className='text-6xl font-bold text-gray-300'>No Sellers</p>
-                            </div>
+                                :
+                                <div className='h-[600px] flex justify-center items-center'>
+                                    <p className='text-6xl font-bold text-gray-300'>No Sellers</p>
+                                </div>
                         }
 
 
