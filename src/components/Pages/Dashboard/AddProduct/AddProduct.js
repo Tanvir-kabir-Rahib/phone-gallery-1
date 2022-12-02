@@ -1,53 +1,98 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
-    const handleAddProduct = event => {
-
+    const { user } = useContext(AuthContext)
+    const { register, handleSubmit } = useForm();
+    const { data: categories = [], isLoading } = useQuery({
+        queryKey: ['category'],
+        queryFn: () => fetch(`http://localhost:4000/category`).then(res => res.json())
+    })
+    const navigate = useNavigate();
+    const handleAddProduct = data => {
+        const productName = data.productName
+        const location = data.location
+        const sellerNumber = data.sellerNumber
+        const originalPrice = data.originalPrice
+        const resalePrice = data.resalePrice
+        const yearOfPurchase = data.yearOfPurchase
+        const yearOfUse = data.yearOfUse
+        const productCategory = data.productCategory
+        const condition = data.condition
+        const description = data.description
+        const photo = data.image;
+        console.log(photo, productName, location, sellerNumber, originalPrice, resalePrice, yearOfPurchase, yearOfUse, productCategory, condition, description)
     }
     return (
-        <div className='flex justify-center items-center' >
+        <div className='mb-24 flex justify-center items-center' >
             <div className='w-11/12 md:w-3/4 lg:w-8/12 shadow-xl p-10 rounded-xl'>
-                <form onSubmit={handleAddProduct}>
+                <form onSubmit={handleSubmit(handleAddProduct)}>
                     <h1 className='text-2xl text-center mb-5'>Add a New Product</h1>
                     <div className='form-contorl'>
                         <label className='label label-text'>Product Name</label>
-                        <input type='text' className='input input-bordered w-full' name='productName' required />
+                        <input type='text' className='input input-bordered w-full' {...register("productName")} required />
                     </div>
                     <div className='form-contorl'>
                         <label className='label label-text'>Location</label>
-                        <input type='text' className='input input-bordered w-full' name='Location' required/>
+                        <input type='text' className='input input-bordered w-full' {...register("location")} required />
                     </div>
                     <div className='form-contorl'>
                         <label className='label label-text'>Seller Number</label>
-                        <input type='text' className='input input-bordered w-full' name='sellerNumber' required/>
+                        <input type='text' className='input input-bordered w-full' {...register("sellerNumber")} required />
                     </div>
                     <div className='form-control'>
                         <label className='label label-text'>Original Price</label>
-                        <input type='text' name='originalPrice' className='input input-bordered w-full' required/>
+                        <input type='text' className='input input-bordered w-full' {...register("originalPrice")} required />
                     </div>
                     <div className='form-control'>
                         <label className='label label-text'>Resale Price</label>
-                        <input type='text' name='resalePrice' className='input input-bordered w-full' required/>
+                        <input type='text' className='input input-bordered w-full' {...register("resalePrice")} required />
                     </div>
                     <div className='form-control'>
                         <label className='label label-text'>Years of use</label>
-                        <input type='text' name='yearOfUse' className='input input-bordered w-full' required/>
+                        <input type='text' className='input input-bordered w-full' {...register("yearOfUse")} required />
                     </div>
                     <div className='form-control'>
                         <label className='label label-text'>Year of Purchase</label>
-                        <input type='text' name='yearOfPurchase' className='input input-bordered w-full' required/>
+                        <input type='text' className='input input-bordered w-full' {...register("yearOfPurchase")} required />
                     </div>
                     <div className='form-control'>
                         <label className='label label-text'>Product Condition</label>
-                        <select name='condition' className="select w-full bg-zinc-200">
-                            <option selected>Fair</option>
+                        <select {...register("condition", {
+                            required: true
+                        })} className="select w-full bg-zinc-200">
+                            <option>Fair</option>
                             <option>Good</option>
                             <option>Excellent</option>
                         </select>
                     </div>
                     <div className='form-control'>
+                        <label className='label label-text'>Product Category</label>
+                        <select {...register("productCategory", {
+                        required: true
+                    })} className="select w-full bg-zinc-200" required>
+                            {
+                                categories ?
+                                    categories.map(category => <option key={category._id}>{category.name}</option>)
+                                    :
+                                    <>Please Refresh The page</>
+                            }
+                        </select>
+                    </div>
+                    <div className='form-control'>
                         <label className='label label-text'>Product Description</label>
-                        <textarea name='description' className="textarea textarea-bordered" placeholder="Product Description"></textarea>
+                        <textarea className="textarea textarea-bordered" placeholder="Product Description" {...register("description", {
+                        required: true
+                    })}></textarea>
+                    </div>
+                    <div className='form-control'>
+                        <label className='label label-text'>Product Photo</label>
+                        <input type="file" {...register("image", {
+                            required: "Photo is Required"
+                        })} className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className='form-control mb-3'>
                         <input type="submit" value='Book Now' className='btn btn-accent mt-5' />
