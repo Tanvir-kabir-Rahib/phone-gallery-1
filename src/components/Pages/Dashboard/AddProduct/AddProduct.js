@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
 
@@ -12,19 +13,70 @@ const AddProduct = () => {
         queryFn: () => fetch(`http://localhost:4000/category`).then(res => res.json())
     })
     const navigate = useNavigate();
+    const imageHostKey = process.env.REACT_APP_imgbb_key;
     const handleAddProduct = data => {
-        const productName = data.productName
-        const location = data.location
-        const sellerNumber = data.sellerNumber
-        const originalPrice = data.originalPrice
-        const resalePrice = data.resalePrice
-        const yearOfPurchase = data.yearOfPurchase
-        const yearOfUse = data.yearOfUse
-        const productCategory = data.productCategory
-        const condition = data.condition
-        const description = data.description
-        const photo = data.image;
-        console.log(photo, productName, location, sellerNumber, originalPrice, resalePrice, yearOfPurchase, yearOfUse, productCategory, condition, description)
+        const image = data.image[0];
+        const productName = data.productName;
+        const location = data.location;
+        const sellerNumber = data.sellerNumber;
+        const originalPrice = data.originalPrice;
+        const resalePrice = data.resalePrice;
+        const yearOfPurchase = data.yearOfPurchase;
+        const yearOfUse = data.yearOfUse;
+        const productCategory = data.productCategory;
+        const productCategoryId = categories.find(category => category.name === productCategory)._id;
+        const condition = data.condition;
+        const description = data.description;
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    const product = {
+                        productName,
+                        location,
+                        sellerNumber,
+                        originalPrice,
+                        resalePrice,
+                        yearOfUse,
+                        yearOfPurchase,
+                        productCategory,
+                        productCategoryId,
+                        condition,
+                        description,
+                        sellerEmail: user?.email,
+                        sellerName: user?.displayName
+                    }
+                    fetch('http://localhost:4000/products', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            // authorization: `bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(product)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            toast.success(`Product is added successfully`);
+                            navigate('/dashboard/myProducts')
+                        })
+                }
+            })
+
+
+    }
+    if (isLoading) {
+        return (
+            <div className='mt-16 flex items-center justify-center'>
+                <button className="btn loading">loading</button>
+            </div>
+        )
     }
     return (
         <div className='mb-24 flex justify-center items-center' >
@@ -72,21 +124,21 @@ const AddProduct = () => {
                     <div className='form-control'>
                         <label className='label label-text'>Product Category</label>
                         <select {...register("productCategory", {
-                        required: true
-                    })} className="select w-full bg-zinc-200" required>
+                            required: true
+                        })} className="select w-full bg-zinc-200" required>
                             {
                                 categories ?
                                     categories.map(category => <option key={category._id}>{category.name}</option>)
                                     :
-                                    <>Please Refresh The page</>
+                                    <></>
                             }
                         </select>
                     </div>
                     <div className='form-control'>
                         <label className='label label-text'>Product Description</label>
                         <textarea className="textarea textarea-bordered" placeholder="Product Description" {...register("description", {
-                        required: true
-                    })}></textarea>
+                            required: true
+                        })}></textarea>
                     </div>
                     <div className='form-control'>
                         <label className='label label-text'>Product Photo</label>

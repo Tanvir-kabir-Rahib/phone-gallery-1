@@ -26,7 +26,7 @@ const Categories = () => {
                 {
                     categories.map(category =>
                         <Link key={category._id} className="card card-compact bg-base-100 shadow-xl flex-row items-center justify-center rounded-xl">
-                            <figure className='w-2/5'><img src={category.imgURL} alt="Shoes" className='w-full' /></figure>
+                            <figure className='w-2/5'><img src={category.imgURL} alt="Shoes"/></figure>
                             <div className="card-body w-3/5">
                                 <h2 className="card-title text-3xl">{category.name}</h2>
                             </div>

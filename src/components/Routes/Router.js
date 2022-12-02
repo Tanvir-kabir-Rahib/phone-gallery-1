@@ -43,8 +43,12 @@ const router = createBrowserRouter([
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
+                path: '/dashboard',
+                element: <Dashboard/>
+            },
+            {
                 path: '/dashboard/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <Dashboard/>
             },
             {
                 path: '/dashboard/addProduct',
