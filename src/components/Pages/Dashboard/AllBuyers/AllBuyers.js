@@ -16,7 +16,7 @@ const AllBuyers = () => {
         .then(data => {
             if(data.deletedCount > 0){
                 refetch();
-                toast.success(`Doctor ${buyer.name} deleted successfully`)
+                toast.success(`${buyer.name} deleted successfully`)
             }
         })
     }
@@ -52,7 +52,7 @@ const AllBuyers = () => {
                                     </tr>)
                                     :
                                     <div className='h-[600px] flex justify-center items-center'>
-                                        <p className='text-6xl font-bold text-gray-300'>No Sellers</p>
+                                        <p className='text-6xl font-bold text-gray-300'>No Buyers</p>
                                     </div>
                             }
 

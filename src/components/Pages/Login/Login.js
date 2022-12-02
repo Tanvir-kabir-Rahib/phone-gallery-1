@@ -17,9 +17,9 @@ const Login = () => {
             .then(user => {
                 setUserEmail(data.email);
                 navigate(from, { replace: true })
-                toast.success('Registerd Successfully')
+                toast.success('Login Successfully')
             })
-            .catch(err => console.error(err))
+            .catch(err => toast.error(err.message))
     };
     const handleGoogleLogin = () => {
         googleLogin()
@@ -27,9 +27,9 @@ const Login = () => {
                 const user = result.user;
                 saveUserToDB(user.displayName, user.email, 'Buyer')
                 navigate(from, { replace: true })
-                toast('Here is your toast.');
+                toast.success('Login Successfull');
             })
-            .catch(err => console.error(err))
+            .catch(err => toast.error(err.message))
     }
     const saveUserToDB = (name, email, userType) => {
         const user = { name, email, userType };

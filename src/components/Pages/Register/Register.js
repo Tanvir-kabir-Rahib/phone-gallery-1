@@ -25,9 +25,9 @@ const Register = () => {
                         navigate('/')
                         toast.success('Registerd Successfully')
                     })
-                    .catch(err => console.error(err))
+                    .catch(err => toast.error(err.message))
             })
-            .catch(err => console.error(err))
+            .catch(err => toast.error(err.message))
     };
     const handleGoogleLogin = () => {
         googleLogin()
@@ -35,9 +35,9 @@ const Register = () => {
                 const user = result.user;
                 saveUserToDB(user.displayName, user.email, 'Buyer');
                 navigate('/');
-                toast('Here is your toast.');
+                toast.success('Register Successfull.');
             })
-            .catch(err => console.error(err))
+            .catch(err => toast.error(err.message))
     }
     const saveUserToDB = (name, email, userType) => {
         const user = { name, email, userType };

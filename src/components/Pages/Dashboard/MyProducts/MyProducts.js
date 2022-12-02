@@ -6,7 +6,7 @@ import MyProductCard from './MyProductCard';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext)
-    const { data: myProducts = [], isLoading } = useQuery({
+    const { data: myProducts = [], refetch, isLoading } = useQuery({
         queryKey: ['myProducts'],
         queryFn: () => fetch(`http://localhost:4000/products?email=${user?.email}`).then(res => res.json())
     })
@@ -28,6 +28,7 @@ return (
                 myProducts.map(product => <MyProductCard
                     key={product._id}
                     product={product}
+                    refetch = {refetch}
                 ></MyProductCard>)
                 :
                 <div className='h-[600px] flex justify-center items-center'>

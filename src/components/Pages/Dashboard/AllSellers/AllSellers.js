@@ -16,7 +16,7 @@ const AllSellers = () => {
             .then(data => {
                 if (data.deletedCount > 0) {
                     refetch();
-                    toast.success(`Doctor ${seller.name} deleted successfully`)
+                    toast.success(`${seller.name} deleted successfully`)
                 }
             })
     }
