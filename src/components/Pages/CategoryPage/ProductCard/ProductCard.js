@@ -12,7 +12,7 @@ const ProductCard = ({product}) => {
                 <p>Resale Price: ${product.resalePrice}</p>
                 <p>Original Price: ${product.originalPrice}</p>
                 <p>Year of Use: {product.yearOfUse ? product.yearOfUse : 'Unavailable'}</p>
-                <p>Seller: {product.sellerName?product.sellerName:'Unavailable'}{product.varify==="varified"&&<FaCheckCircle></FaCheckCircle>}</p>
+                <p>Seller: {product.sellerName?product.sellerName:'Unavailable'}{product.varify==="varified"&&<FaCheckCircle className='text-sky-500'></FaCheckCircle>}</p>
                 <p>Post Time: {product.time  ? product.time : "The post time is unavailable"}</p>
                 <div className="card-actions justify-end">
                     <button className="btn btn-primary rounded-lg">Buy Now</button>

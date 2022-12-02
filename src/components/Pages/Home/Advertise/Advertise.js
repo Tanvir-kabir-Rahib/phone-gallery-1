@@ -17,7 +17,7 @@ const Advertise = () => {
     }
 
     return (
-        advertise.length > 1 &&
+        advertise.length > 0 &&
         <div className='mt-32'>
             <h1 className='text-center text-5xl font-semibold'>Advertised Products</h1>
             <div className='mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4'>

@@ -10,5 +10,5 @@ Live Site of [Phone Gallery](https://m-photography.web.app/) or [https://phone-g
 * Seller can advertise their products to sale.
 * Admin can control sellers and buyers.
 
-adminEmail: <tanvirkabirrahib2@gmail.com>
-adminPassword: <123456>
+adminEmail: tanvirkabirrahib2@gmail.com
+adminPassword: 123456
