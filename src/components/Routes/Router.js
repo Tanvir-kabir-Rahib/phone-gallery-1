@@ -11,6 +11,7 @@ import MyProducts from "../Pages/Dashboard/MyProducts/MyProducts";
 import ReportedItems from "../Pages/Dashboard/ReportedItems/ReportedItems";
 import HomePage from "../Pages/Home/HomePage/HomePage";
 import Login from "../Pages/Login/Login";
+import NotFound from "../Pages/NotFound/NotFound";
 import Register from "../Pages/Register/Register";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
                 element: <AdminRoute><ReportedItems></ReportedItems></AdminRoute>
             },
         ]
+    },
+    {
+        path: "*",
+        element:<NotFound></NotFound>
     }
 ])
 export default router;

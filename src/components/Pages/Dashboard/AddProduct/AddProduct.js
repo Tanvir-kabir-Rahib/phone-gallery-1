@@ -62,9 +62,8 @@ const AddProduct = () => {
                     })
                         .then(res => res.json())
                         .then(result => {
-                            console.log(result);
-                            toast.success(`Product is added successfully`);
                             navigate('/dashboard/myProducts')
+                            toast.success(`Product is added successfully`);
                         })
                 }
             })

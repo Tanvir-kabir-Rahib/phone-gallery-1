@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
@@ -22,6 +23,7 @@ const Register = () => {
                     .then(() => {
                         saveUserToDB(name, email, userType)
                         navigate('/')
+                        toast.success('Registerd Successfully')
                     })
                     .catch(err => console.error(err))
             })
@@ -33,6 +35,7 @@ const Register = () => {
                 const user = result.user;
                 saveUserToDB(user.displayName, user.email, 'Buyer');
                 navigate('/');
+                toast.success('Registerd Successfully')
             })
             .catch(err => console.error(err))
     }

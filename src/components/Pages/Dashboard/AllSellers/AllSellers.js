@@ -44,7 +44,7 @@ const AllSellers = () => {
                     <tbody>
                         {
                             allSellers.length > 0 ?
-                                allSellers.map((seller, idx) => <tr onClick={()=>handleDeleteSeller} key={seller?._id} className="hover">
+                                allSellers.map((seller, idx) => <tr onClick={()=>handleDeleteSeller(seller)} key={seller?._id} className="hover">
                                     <th>{idx + 1}</th>
                                     <td>{seller?.name}</td>
                                     <td>{seller?.email}</td>

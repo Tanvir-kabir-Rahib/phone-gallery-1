@@ -17,6 +17,7 @@ const Login = () => {
             .then(user => {
                 setUserEmail(data.email);
                 navigate(from, { replace: true })
+                toast.success('Registerd Successfully')
             })
             .catch(err => console.error(err))
     };
@@ -26,6 +27,7 @@ const Login = () => {
                 const user = result.user;
                 saveUserToDB(user.displayName, user.email, 'Buyer')
                 navigate(from, { replace: true })
+                toast.success('Registerd Successfully')
             })
             .catch(err => console.error(err))
     }
