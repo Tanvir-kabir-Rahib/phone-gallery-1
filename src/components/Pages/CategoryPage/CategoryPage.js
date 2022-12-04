@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import BuyingModal from '../../BuyingModal/BuyingModal';
+import { useParams } from 'react-router-dom';
 import ProductCard from './ProductCard/ProductCard';
 
-const CategoryPage = ({ params }) => {
+const CategoryPage = () => {
+    const { id } = useParams()
     const { data: categoryProducts = [], isLoading, refetch } = useQuery({
-        queryKey: ['categoryProducts'],
-        queryFn: () => fetch(fetch(`http://localhost:4000/category/${params.id}`)).then(res => res.json())
+        queryKey: ['categroyProducts', id],
+        queryFn: () => fetch(`http://localhost:4000/category/${id}`).then(res => res.json())
     })
+    console.log(categoryProducts)
     if (isLoading) {
         return (
             <div className='mt-16 flex items-center justify-center'>

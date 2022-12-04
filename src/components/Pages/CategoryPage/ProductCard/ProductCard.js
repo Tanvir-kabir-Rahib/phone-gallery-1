@@ -17,12 +17,12 @@ const ProductCard = ({ product, refetch }) => {
                 <p>Seller: {product.sellerName ? product.sellerName : 'Unavailable'}{product.varify === "varified" && <FaCheckCircle className='text-sky-500'></FaCheckCircle>}</p>
                 <p>Post Time: {product.time ? product.time : "The post time is unavailable"}</p>
                 <div className="card-actions justify-end">
-                    <label className="btn btn-primary bg-gradient-to-r from-secondary to-primary text-white font-semibold" htmlFor={`my-modal-${product._id}`}>Buy Now</label>
+                    <label onClick={()=>setModal(product)} className="btn btn-primary bg-gradient-to-r from-secondary to-primary text-white font-semibold" htmlFor={`my-modal-${product._id}`}>Buy Now</label>
                 </div>
             </div>
-            {
+            {   
                 modal &&
-                <BuyingModal setModal={setModal} refetch={refetch} product={product}></BuyingModal>}
+                <BuyingModal setModal={setModal} modal={modal} refetch={refetch}></BuyingModal>}
         </div>
     );
 };
