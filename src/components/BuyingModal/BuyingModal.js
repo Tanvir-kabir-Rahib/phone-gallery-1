@@ -22,7 +22,7 @@ const BuyingModal = ({ modal, refetch, setModal }) => {
             .then(result => {
                 toast.success(`Product Added to My Orders`);
             })
-        fetch(`http://localhost:4000/advertise?id=${modal?.bookId}`, {
+        fetch(`http://localhost:4000/advertise?id=${modal?.mainId}`, {
             method: 'DELETE',
         })
             .then(res => res.json())

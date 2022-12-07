@@ -24,7 +24,7 @@ if (isLoading) {
 return (
     <div className='grid grid-cols-1 md:grid-cosl-2 lg:grid-cols-3 gap-8 px-4 my-24'>
         {
-            myProducts.length > 1 ?
+            myProducts.length > 0 ?
                 myProducts.map(product => <MyProductCard
                     key={product._id}
                     product={product}
