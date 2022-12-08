@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import BuyingModal from '../../../BuyingModal/BuyingModal';
 import ProductCard from '../../CategoryPage/ProductCard/ProductCard';
 
 const Advertise = () => {

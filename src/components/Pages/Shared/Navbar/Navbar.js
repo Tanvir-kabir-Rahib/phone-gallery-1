@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
+import userimg from '../../../../assets/user.png'
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
@@ -20,7 +21,7 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end hidden lg:block">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-full rounded-full tooltip tooltip-bottom" data-tip={user?.displayName} >
-                                <img className='w-full' src={"https://placeimg.com/80/80/people"} alt='' />
+                                <img className='w-full' src={userimg} alt='' />
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52">
@@ -71,7 +72,7 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end absolute right-14 top-2 lg:hidden">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-full rounded-full">
-                                    <img className='w-full' src={"https://placeimg.com/80/80/people"} alt='' />
+                                    <img className='w-full' src={userimg} alt='' />
                                 </div>
                             </label>
                             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52">
