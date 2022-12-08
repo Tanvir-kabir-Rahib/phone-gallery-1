@@ -7,7 +7,7 @@ const ProductCard = ({ product, refetch }) => {
     const [modal, setModal] = useState(null);
     return (
         <div className="card bg-base-100 shadow-xl">
-            <figure className='max-h-96'><img src={product.image ? product.image : placeholderImg} className='w-full' alt="Shoes" /></figure>
+            <figure className='max-h-[256px] min-h-[256px]'><img src={product.image ? product.image : placeholderImg} alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title">{product.productName}</h2>
                 <p>Product Location: {product.location ? product.location : 'Unavailable'}</p>

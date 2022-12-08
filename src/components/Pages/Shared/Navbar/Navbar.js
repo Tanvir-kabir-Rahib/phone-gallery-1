@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight } from "react-icons/fa";
 import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
@@ -18,7 +17,19 @@ const Navbar = () => {
             user ?
                 <>
                     <li><Link to='dashboard'>Dashboard</Link></li>
-                    <li><button onClick={handleLogOut}>Logout<FaArrowRight></FaArrowRight></button></li>
+                    <div className="dropdown dropdown-end hidden lg:block">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-full rounded-full tooltip tooltip-bottom" data-tip={user?.displayName} >
+                                <img className='w-full' src={"https://placeimg.com/80/80/people"} alt='' />
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52">
+                            <li className='my-1'>
+                                {user.displayName}
+                            </li>
+                            <li className='my-1' onClick={handleLogOut}>Logout</li>
+                        </ul>
+                    </div>
                 </>
                 :
                 <li><Link to='/login'>Login</Link></li>
@@ -48,10 +59,28 @@ const Navbar = () => {
                     </ul>
                 </div>
                 {
-                    user?
-                        <label htmlFor="dashboard-drawer" tabIndex={2} className="btn btn-ghost lg:hidden absolute right-3">
+                    user ?
+                        <label htmlFor="dashboard-drawer" tabIndex={0} className="btn btn-ghost lg:hidden absolute right-0">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
+                        :
+                        <></>
+                }
+                {
+                    user ?
+                        <div className="dropdown dropdown-end absolute right-14 top-2 lg:hidden">
+                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="w-full rounded-full">
+                                    <img className='w-full' src={"https://placeimg.com/80/80/people"} alt='' />
+                                </div>
+                            </label>
+                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52">
+                                <li className='my-1'>
+                                    {user.displayName}
+                                </li>
+                                <li className='my-1' onClick={handleLogOut}>Logout</li>
+                            </ul>
+                        </div>
                         :
                         <></>
                 }

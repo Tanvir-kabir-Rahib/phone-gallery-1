@@ -4,14 +4,8 @@ import placeholderImg from '../../../../assets/360_F_248426448_NVKLywWqArG2ADUxD
 
 const MyProductCard = ({ product, refetch }) => {
     const handleAddAdvertise = (product) => {
-        product.mainId = product._id
-        delete product._id;
-        fetch('http://localhost:4000/advertise', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(product)
+        fetch(`http://localhost:4000/products/${product._id}`, {
+            method: 'PUT',
         })
             .then(res => res.json())
             .then(result => {
@@ -19,17 +13,7 @@ const MyProductCard = ({ product, refetch }) => {
             })
     }
     const handleDelete = (id) => {
-        fetch(`http://localhost:4000/products?id=${id}`, {
-            method: 'DELETE',
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    refetch();
-                    toast.success(`Product deleted successfully`)
-                }
-            })
-        fetch(`http://localhost:4000/advertise?id=${id}`, {
+        fetch(`http://localhost:4000/products?id=${product._id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -43,7 +27,7 @@ const MyProductCard = ({ product, refetch }) => {
     return (
         <div>
             <div className="card bg-base-100 shadow-xl">
-                <figure className='max-h-96'><img className='w-full' src={product.image ? product.image : placeholderImg} alt="Shoes" /></figure>
+                <figure><img className='max-h-[152px] min-h-[152px]' src={product.image ? product.image : placeholderImg} alt="Shoes" /></figure>
                 <div className="card-body">
                     <h2 className="card-title">{product.productName}</h2>
                     <p>Product Location: {product.location}</p>

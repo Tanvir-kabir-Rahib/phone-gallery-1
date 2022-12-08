@@ -8,7 +8,7 @@ const BuyingModal = ({ modal, refetch, setModal }) => {
     console.log(modal)
     const handleBookingSubmit = (event) => {
         event.preventDefault()
-        modal.bookId = modal?._id
+        modal.mainId = modal?._id
         modal.buyerEmail = user?.email;
         delete modal._id;
         fetch('http://localhost:4000/orders', {
@@ -22,16 +22,8 @@ const BuyingModal = ({ modal, refetch, setModal }) => {
             .then(result => {
                 toast.success(`Product Added to My Orders`);
             })
-        fetch(`http://localhost:4000/advertise?id=${modal?.mainId}`, {
-            method: 'DELETE',
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    refetch();
-                }
-            })
-        fetch(`http://localhost:4000/products?id=${modal?.bookId}`, {
+
+        fetch(`http://localhost:4000/products?id=${modal?.mainId}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
