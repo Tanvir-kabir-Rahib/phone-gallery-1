@@ -9,7 +9,7 @@ const Dashboard = () => {
     const { user } = useContext(AuthContext)
     const { data: currentUser = null } = useQuery({
         queryKey: ['currentUser', user?.email],
-        queryFn: () => fetch(`http://localhost:4000/user/${user?.email}`).then(res => res.json())
+        queryFn: () => fetch(`https://phone-gallery-server-nu.vercel.app/user/${user?.email}`).then(res => res.json())
     })
     return (
         <div>

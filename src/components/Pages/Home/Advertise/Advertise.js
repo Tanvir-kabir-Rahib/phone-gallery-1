@@ -5,7 +5,7 @@ import ProductCard from '../../CategoryPage/ProductCard/ProductCard';
 const Advertise = () => {
     const { data: advertise = [], isLoading, refetch } = useQuery({
         queryKey: ['advertise'],
-        queryFn: () => fetch(`http://localhost:4000/advertise`).then(res => res.json())
+        queryFn: () => fetch(`https://phone-gallery-server-nu.vercel.app/advertise`).then(res => res.json())
     })
 
     if (isLoading) {

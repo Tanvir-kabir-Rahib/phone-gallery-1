@@ -4,7 +4,7 @@ import placeholderImg from '../../../../assets/360_F_248426448_NVKLywWqArG2ADUxD
 
 const MyProductCard = ({ product, refetch }) => {
     const handleAddAdvertise = (product) => {
-        fetch(`http://localhost:4000/products/${product._id}`, {
+        fetch(`https://phone-gallery-server-nu.vercel.app/products/${product._id}`, {
             method: 'PUT',
         })
             .then(res => res.json())
@@ -13,7 +13,7 @@ const MyProductCard = ({ product, refetch }) => {
             })
     }
     const handleDelete = (id) => {
-        fetch(`http://localhost:4000/products?id=${product._id}`, {
+        fetch(`https://phone-gallery-server-nu.vercel.app/products?id=${product._id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())

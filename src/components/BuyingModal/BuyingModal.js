@@ -11,7 +11,7 @@ const BuyingModal = ({ modal, refetch, setModal }) => {
         modal.mainId = modal?._id
         modal.buyerEmail = user?.email;
         delete modal._id;
-        fetch('http://localhost:4000/orders', {
+        fetch('https://phone-gallery-server-nu.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -23,7 +23,7 @@ const BuyingModal = ({ modal, refetch, setModal }) => {
                 toast.success(`Product Added to My Orders`);
             })
 
-        fetch(`http://localhost:4000/products?id=${modal?.mainId}`, {
+        fetch(`https://phone-gallery-server-nu.vercel.app/products?id=${modal?.mainId}`, {
             method: 'DELETE',
         })
             .then(res => res.json())

@@ -11,7 +11,7 @@ const AddProduct = () => {
     const { register, handleSubmit } = useForm();
     const { data: categories = [], isLoading } = useQuery({
         queryKey: ['category'],
-        queryFn: () => fetch(`http://localhost:4000/category`).then(res => res.json())
+        queryFn: () => fetch(`https://phone-gallery-server-nu.vercel.app/category`).then(res => res.json())
     })
 
     const navigate = useNavigate();
@@ -58,7 +58,7 @@ const AddProduct = () => {
                         image: imgData.data.url, 
                         time
                     }
-                    fetch('http://localhost:4000/products', {
+                    fetch('https://phone-gallery-server-nu.vercel.app/products', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

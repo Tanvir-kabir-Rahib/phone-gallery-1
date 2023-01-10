@@ -41,7 +41,7 @@ const Register = () => {
     }
     const saveUserToDB = (name, email, userType) => {
         const user = { name, email, userType };
-        fetch('http://localhost:4000/users', {
+        fetch('https://phone-gallery-server-nu.vercel.app/users', {
             method: 'post',
             headers: {
                 'content-type': 'application/json'

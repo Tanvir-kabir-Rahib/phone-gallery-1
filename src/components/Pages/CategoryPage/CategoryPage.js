@@ -7,7 +7,7 @@ const CategoryPage = () => {
     const { id } = useParams()
     const { data: categoryProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['categroyProducts', id],
-        queryFn: () => fetch(`http://localhost:4000/category/${id}`).then(res => res.json())
+        queryFn: () => fetch(`https://phone-gallery-server-nu.vercel.app/category/${id}`).then(res => res.json())
     })
     if (isLoading) {
         return (

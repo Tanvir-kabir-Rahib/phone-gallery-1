@@ -8,7 +8,7 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext)
     const { data: myProducts = [], refetch, isLoading } = useQuery({
         queryKey: ['myProducts'],
-        queryFn: () => fetch(`http://localhost:4000/products?email=${user?.email}`).then(res => res.json())
+        queryFn: () => fetch(`https://phone-gallery-server-nu.vercel.app/products?email=${user?.email}`).then(res => res.json())
     })
 
     
