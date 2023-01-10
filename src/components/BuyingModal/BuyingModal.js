@@ -1,41 +1,55 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { FaTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 const BuyingModal = ({ modal, refetch, setModal }) => {
-    const { user } = useContext(AuthContext)
+    const { user, loading } = useContext(AuthContext)
     console.log(modal)
+    const navigate = useNavigate()
     const handleBookingSubmit = (event) => {
         event.preventDefault()
-        modal.mainId = modal?._id
-        modal.buyerEmail = user?.email;
-        delete modal._id;
-        fetch('https://phone-gallery-server-nu.vercel.app/orders', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(modal)
-        })
-            .then(res => res.json())
-            .then(result => {
-                toast.success(`Product Added to My Orders`);
+        if (!user) {
+            navigate('/login')
+        }
+        if (loading) {
+            return (
+                <div className='mt-16 flex items-center justify-center'>
+                    <button className="btn loading">loading</button>
+                </div>
+            )
+        }
+        if (user) {
+            modal.mainId = modal?._id
+            modal.buyerEmail = user?.email;
+            delete modal._id;
+            fetch('https://phone-gallery-server-nu.vercel.app/orders', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(modal)
             })
+                .then(res => res.json())
+                .then(result => {
+                    toast.success(`Product Added to My Orders`);
+                })
 
-        fetch(`https://phone-gallery-server-nu.vercel.app/products?id=${modal?.mainId}`, {
-            method: 'DELETE',
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    refetch();
-                }
-                else {
-                    refetch()
-                }
+            fetch(`https://phone-gallery-server-nu.vercel.app/products?id=${modal?.mainId}`, {
+                method: 'DELETE',
             })
-        setModal(null)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        refetch();
+                    }
+                    else {
+                        refetch()
+                    }
+                })
+            setModal(null)
+        }
     }
     return (
         <div>
